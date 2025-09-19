@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('PGIMRE SMOKE Test with 2FA Integration', () => {
+test.describe("GA  SMOKE Test", () => {
 
   test.beforeEach(async ({ page }) => {
     await page.goto('https://ga.qa-portal-investorflow.com/', { timeout: 120000 });
