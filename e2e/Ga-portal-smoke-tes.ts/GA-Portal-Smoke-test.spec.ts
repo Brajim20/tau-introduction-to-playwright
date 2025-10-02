@@ -168,26 +168,18 @@ await page.locator('#mainContent_DocumentViewerControl_panelCallback_txtSearchDo
 ///wait for search results to load
 await expect(page.getByRole('link', { name: 'lp testing prospect doc' })).toBeVisible();
 //download a document
-await page.locator('#mainContent_DocumentViewerControl_panelCallback_dgvDocument_cell4_16_DownloadSingleBtn_4Img').click();
+await page.locator('#mainContent_DocumentViewerControl_panelCallback_dgvDocument_cell1_16_DownloadSingleBtn_1Img').click();
 await page.locator('#mainContent_DocumentViewerControl_panelCallback_txtSearchDocuments_I').clear();
 //close the download popup
 await expect(page.locator('#customTooltip')).toBeVisible();
 await page.getByRole('img', { name: 'Close' }).nth(1).click();
 //switch email me the document
 await page.locator('#mainContent_DocumentViewerControl_panelCallback_dgvDocument_cell4_16_EmailMeSingleBtn_4Img').click();
-await page.waitForTimeout(500);
 // close the email popup
 await expect(page.locator('#customTooltip')).toBeVisible();
-const closeButton = page.getByRole('img', { name: 'Close' });
-
-// Wait for it to be visible
-await expect(closeButton).toBeVisible();
-
-// Then click
-await closeButton.click()
 
 // show Read/Unread/alla documents
-await page.getByText('Show: All Show: All').click();
+await page.locator('span').filter({ hasText: 'Show: All' }).click();
 await page.waitForTimeout(500);
 await page.locator('#mainContent_DocumentViewerControl_panelCallback_pcDocumentStatusFilter_btnUnread_CD span').click();
 await page.waitForTimeout(500);
