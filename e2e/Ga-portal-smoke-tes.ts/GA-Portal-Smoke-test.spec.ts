@@ -111,7 +111,7 @@ await expect(page.getByText('Select an Investor to view')).toBeVisible();
  await page.getByRole('link', { name: 'Read (1)', exact: true }).click();
    await page.waitForTimeout(500);
    await page.getByRole('link', { name: 'Show All (2)' }).click();
-await page.waitForTimeout(1000);
+await page.waitForTimeout(200);
    await page.getByRole('link', { name: 'Unread (1)' }).click();   
    await page.waitForTimeout(500);     
 
