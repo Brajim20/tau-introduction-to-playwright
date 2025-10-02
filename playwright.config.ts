@@ -12,6 +12,7 @@ require('dotenv').config();
  */
 export default defineConfig({
   // testDir: './tests',
+  
 
   /* Run tests in files in parallel */
   fullyParallel: true,
@@ -52,7 +53,7 @@ export default defineConfig({
     screenshot: 'only-on-failure',
     // headless: false,
     // ignoreHTTPSErrors: true,
-    // viewport: { width: 1280, height: 720 },
+    viewport: { width: 1920, height: 1080 },
     // video: 'on-first-retry',
   },
     // timeout: 30000, //https://playwright.dev/docs/test-timeouts
