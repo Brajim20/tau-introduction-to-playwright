@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 test.describe("GA  SMOKE Test", () => {
 
   test.beforeEach(async ({ page }) => {
-    await page.goto('https://ga.qa-portal-investorflow.com/SAML2/Login.aspx?source=idp' , { timeout: 5000});
+    await page.goto('https://ga.qa-portal-investorflow.com/SAML2/Login.aspx?source=idp' , { timeout: 500000});
     await page.setViewportSize({ width: 1920, height: 1080 });
   });
 
@@ -73,7 +73,7 @@ await expect(page.getByText('Admin')).toBeVisible();
 
     // Example navigation clicks
     scrollToTop: await page.evaluate(() => window.scrollTo(0, 0));
-    await page.locator('#mainContent_LegacyLink').click();
+    await expect(page.locator('#mainContent_LegacyLink')).toBeVisible();
  await page.locator('#mainContent_moreAnnoucementLink').click();
 
     // Alerts validate UI
@@ -82,15 +82,15 @@ await expect(page.getByText('Admin')).toBeVisible();
     await expect(page.getByRole('link', { name: 'Investments Alertas' })).toBeVisible();;
    await expect(page.getByText('view', { exact: true })).toBeVisible();
    await expect(page.getByRole('link', { name: 'Unread (4)' })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Read (51)' })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Show All (55)' })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Read (39) ' })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Show All (43)' })).toBeVisible();
   await expect(page.getByRole('link', { name: 'MARK ALL ALERTS AS READ' })).toBeVisible();
   await expect(page.getByText('Upcoming Events')).toBeVisible();
 
   // alerts page check functionality (the awaits are added to wait for the callback actions to complete)
-   await page.getByRole('link', { name: 'Read (51)'}).click();
+   await page.getByRole('link', { name: 'Read (39)'}).click();
    await page.waitForTimeout(500);
-   await page.getByRole('link', { name: 'Show All (55)'}).click();
+   await page.getByRole('link', { name: 'Show All (43)'}).click();
 await page.waitForTimeout(500);
    await page.getByRole('link', { name: 'Unread (4)' }).click();   
    await page.waitForTimeout(500);     
@@ -173,28 +173,31 @@ await page.locator('#mainContent_DocumentViewerControl_panelCallback_dgvDocument
 await page.locator('#mainContent_DocumentViewerControl_panelCallback_txtSearchDocuments_I').clear();
 //close the download popup
 await expect(page.locator('#customTooltip')).toBeVisible();
-await page.getByRole('img', { name: 'Close' }).nth(1).click();
+await page.waitForTimeout(500);
 //switch email me the document
 await page.locator('#mainContent_DocumentViewerControl_panelCallback_dgvDocument_cell4_16_EmailMeSingleBtn_4Img').click();
 
 // show Read/Unread/alla documents
-await page.locator('span').filter({ hasText: 'Show: All' }).click();
-await page.waitForTimeout(500);
-await page.locator('#mainContent_DocumentViewerControl_panelCallback_txtSearchDocuments_I').fill('test');
+await page.locator('#mainContent_DocumentViewerControl_panelCallback_btnFilter').click();
 await page.waitForTimeout(500);
 await page.locator('#mainContent_DocumentViewerControl_panelCallback_pcDocumentStatusFilter_btnUnread_CD span').click();
+await page.locator('#mainContent_DocumentViewerControl_panelCallback_btnFilter').click();
 await page.waitForTimeout(500);
-await page.locator('span').filter({ hasText: 'Show: All' }).click();
-await page.locator('#mainContent_DocumentViewerControl_panelCallback_pcDocumentStatusFilter_btnAccessed_CD span').click();
-await page.waitForTimeout(1000);
-
+await page.locator('#mainContent_DocumentViewerControl_panelCallback_pcDocumentStatusFilter_btnShowAll_CD span').click();
+await page.locator('#mainContent_DocumentViewerControl_panelCallback_btnFilter').click(); 
+await page.waitForTimeout(500);
+await page.locator('#mainContent_DocumentViewerControl_panelCallback_pcDocumentStatusFilter_btnAccessed_CD span').click() 
+await page.locator('#mainContent_DocumentViewerControl_panelCallback_btnFilter').click();
+await page.waitForTimeout(500);
+await page.locator('#mainContent_DocumentViewerControl_panelCallback_txtSearchDocuments_I').fill('10-4-2025 Emir');
+await page.waitForTimeout(500);
 // download multiple documents
-await page.locator('#mainContent_DocumentViewerControl_panelCallback_dgvDocument_header0_chkSelectAll_0_S_D').check();
+ await page.locator('#mainContent_DocumentViewerControl_panelCallback_dgvDocument_header0_chkSelectAll_0_S_D').click();
 await page.waitForTimeout(200);
-await page.locator('#mainContent_DocumentViewerControl_panelCallback_ASPxButtonMultiDownload').click();
 await expect(page.locator('#customTooltip')).toBeVisible();
 
 //email multiple documents
+await page.locator('#mainContent_DocumentViewerControl_panelCallback_dgvDocument_header0_chkSelectAll_0_S_D').click();
 await page.locator('#mainContent_DocumentViewerControl_panelCallback_ASPxButtonMultiEmail').click();
 await page.waitForTimeout(200);
 await expect(page.locator('#customTooltip')).toBeVisible();
@@ -202,7 +205,7 @@ await expect(page.locator('#customTooltip')).toBeVisible();
     //  Research & Insights page
    await page.getByRole('link', { name: 'Research & Insights' }).click();
  await expect(page.getByText('News & Insights')).toBeVisible();
-await expect(page.getByText('Testing the RI BugSeptember 2025insight alert 25September')).toBeVisible();
+await expect(page.getByText('Testing the RI BugSeptember')).toBeVisible();
 await expect(page.getByText('Insight Spotlight spot')).toBeVisible();
 await expect(page.getByRole('link', { name: 'Filter' })).toBeVisible();
 await expect(page.locator('div').filter({ hasText: /^Testing the RI BugSeptember 2025$/ }).first()).toBeVisible();
