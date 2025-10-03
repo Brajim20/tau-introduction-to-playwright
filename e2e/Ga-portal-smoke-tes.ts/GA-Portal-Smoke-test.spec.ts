@@ -164,6 +164,7 @@ await expect(page.locator('#mainContent_DocumentViewerControl_panelCallback_dgvD
 await page.locator('#mainContent_DocumentViewerControl_panelCallback_rbtnViewBy_RB1_I_D').click();
 await page.waitForTimeout(1000);
 ///list view searchfunctionality
+await page.locator('#mainContent_DocumentViewerControl_panelCallback_txtSearchDocuments_I').click();
 await page.locator('#mainContent_DocumentViewerControl_panelCallback_txtSearchDocuments_I').fill('lp testing prospect doc');
 ///wait for search results to load
 await expect(page.getByRole('link', { name: 'lp testing prospect doc' })).toBeVisible();
@@ -175,21 +176,20 @@ await expect(page.locator('#customTooltip')).toBeVisible();
 await page.getByRole('img', { name: 'Close' }).nth(1).click();
 //switch email me the document
 await page.locator('#mainContent_DocumentViewerControl_panelCallback_dgvDocument_cell4_16_EmailMeSingleBtn_4Img').click();
-// close the email popup
-await expect(page.locator('#customTooltip')).toBeVisible();
 
 // show Read/Unread/alla documents
 await page.locator('span').filter({ hasText: 'Show: All' }).click();
 await page.waitForTimeout(500);
-await page.locator('#mainContent_DocumentViewerControl_panelCallback_pcDocumentStatusFilter_btnUnread_CD span').click();
-await page.waitForTimeout(500);
-await page.locator('#mainContent_DocumentViewerControl_panelCallback_pcDocumentStatusFilter_btnAccessed_CD span').click();
-await page.waitForTimeout(500);
 await page.locator('#mainContent_DocumentViewerControl_panelCallback_txtSearchDocuments_I').fill('test');
 await page.waitForTimeout(500);
+await page.locator('#mainContent_DocumentViewerControl_panelCallback_pcDocumentStatusFilter_btnUnread_CD span').click();
+await page.waitForTimeout(500);
+await page.locator('span').filter({ hasText: 'Show: All' }).click();
+await page.locator('#mainContent_DocumentViewerControl_panelCallback_pcDocumentStatusFilter_btnAccessed_CD span').click();
+await page.waitForTimeout(1000);
 
 // download multiple documents
-await page.locator('#mainContent_DocumentViewerControl_panelCallback_dgvDocument_header0_chkSelectAll_0').check();
+await page.locator('#mainContent_DocumentViewerControl_panelCallback_dgvDocument_header0_chkSelectAll_0_S_D').check();
 await page.waitForTimeout(200);
 await page.locator('#mainContent_DocumentViewerControl_panelCallback_ASPxButtonMultiDownload').click();
 await expect(page.locator('#customTooltip')).toBeVisible();
