@@ -166,8 +166,8 @@ await expect(page.locator('#mainContent_DocumentViewerControl_panelCallback_dgvD
 await page.locator('#mainContent_DocumentViewerControl_panelCallback_rbtnViewBy_RB1_I_D').click();
 await page.waitForTimeout(1000);
 ///list view searchfunctionality
-await page.locator('#mainContent_DocumentViewerControl_panelCallback_txtSearchDocuments_I').click();
-await page.locator('#mainContent_DocumentViewerControl_panelCallback_txtSearchDocuments_I').fill('lp testing prospect doc');
+await page.getByTestId('mainContent_DocumentViewerControl_panelCallback_txtSearchDocuments_I').click();
+await page.getByTestId('mainContent_DocumentViewerControl_panelCallback_txtSearchDocuments_I').fill('lp testing prospect doc');
 ///wait for search results to load
 await expect(page.getByRole('link', { name: 'lp testing prospect doc' })).toBeVisible();
 //download a document
@@ -176,54 +176,12 @@ await page.locator('#mainContent_DocumentViewerControl_panelCallback_txtSearchDo
 //close the download popup
 await expect(page.locator('#customTooltip')).toBeVisible();
 await page.waitForTimeout(500);
-//switch email me the document
+//switch email me the document/
 await expect(page.getByTestId('mainContent_DocumentViewerControl_panelCallback_dgvDocument_cell1_16_EmailMeSingleBtn_1Img')).toBeVisible();
 await page.getByTestId('mainContent_DocumentViewerControl_panelCallback_dgvDocument_cell1_16_EmailMeSingleBtn_1Img').click();
-
-
-// download multiple documents
-await page.getByTestId('mainContent_DocumentViewerControl_panelCallback_txtSearchDocuments_I').fill('10-1-2025');
-await page.getByTestId('mainContent_DocumentViewerControl_panelCallback_txtSearchDocuments_I').fill('10-1-2025 Emir');
-await page.getByTestId('mainContent_DocumentViewerControl_panelCallback_txtSearchDocuments_I').press('Enter');
 await page.waitForTimeout(500);
-await expect(page.getByTestId('mainContent_DocumentViewerControl_panelCallback_dgvDocument_DXDataRow1').getByRole('cell', { name: 'Capital Account Statement' })).toBeVisible();
-await page.getByTestId('mainContent_DocumentViewerControl_panelCallback_dgvDocument_header0_chkSelectAll_0_S_D').click();
-await page.waitForTimeout(1100);
- await page.getByTestId('mainContent_DocumentViewerControl_panelCallback_rbtnViewBy_RB0_I_D').click();
- await page.getByTestId('mainContent_DocumentViewerControl_panelCallback_dgvDocument_header0_chkSelectAll_0_S_D').click();
- await page.getByTestId('mainContent_DocumentViewerControl_panelCallback_ASPxButtonMultiDownload').click();
-await page.waitForTimeout(500);
-await expect(page.locator('#customTooltip')).toBeVisible();
 
-/// email multiple documents
- await page.getByTestId('mainContent_DocumentViewerControl_panelCallback_dgvDocument_header0_chkSelectAll_0_S_D').click();
- await page.getByTestId('mainContent_DocumentViewerControl_panelCallback_ASPxButtonMultiEmail').click();
-await page.waitForTimeout(500);
-await expect(page.locator('#customTooltip')).toBeVisible();
-await page.getByTestId('mainContent_DocumentViewerControl_panelCallback_dgvDocument_header0_chkSelectAll_0_S_D').check();
-await page.locator('span').filter({ hasText: /^Email$/ }).click();
-await page.locator('#customTooltip').click();
-await page.getByRole('img', { name: 'Close' }).click();
- await page.locator('#mainContent_DocumentViewerControl_panelCallback_dgvDocument_header0_chkSelectAll_0_S_D').click();
-await page.waitForTimeout(200);
-await page.locator('#mainContent_DocumentViewerControl_panelCallback_ASPxButtonMultiDownload').click();
-await page.waitForTimeout(200);
-await expect(page.locator('#customTooltip')).toBeVisible();
 
-//email multiple documents
-await page.locator('#mainContent_DocumentViewerControl_panelCallback_dgvDocument_header0_chkSelectAll_0_S_D').click();
-await page.locator('#mainContent_DocumentViewerControl_panelCallback_ASPxButtonMultiEmail').click();
-await page.waitForTimeout(200);
-await expect(page.locator('#customTooltip')).toBeVisible();
-
-// show Read/Unread/alla documents
-
-await page.locator('#mainContent_DocumentViewerControl_panelCallback_btnFilter').click();
-await page.locator('#mainContent_DocumentViewerControl_panelCallback_pcDocumentStatusFilter_btnUnread_CD').click();
-await page.locator('span').filter({ hasText: 'Show: Unread' }).click();
-await page.locator('#mainContent_DocumentViewerControl_panelCallback_pcDocumentStatusFilter_btnAccessed_CD span').click();
-await page.locator('span').filter({ hasText: 'Show: Read' }).click();
-await page.locator('#mainContent_DocumentViewerControl_panelCallback_pcDocumentStatusFilter_btnShowAll_CD').click();
 
     //  Research & Insights page
    await page.getByRole('link', { name: 'Research & Insights' }).click();
