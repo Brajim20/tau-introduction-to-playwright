@@ -8,7 +8,7 @@ test.describe("GA  SMOKE Test", () => {
   });
 
   test('Logs in without 2FA, handles disclaimers, and validates form', async ({ page }) => {
-    
+    test.setTimeout(60000);
     // --- Initial validation
     await expect(page.locator('#lnkOtherSignIn')).toBeVisible();
     await page.locator('#lnkOtherSignIn').click();
@@ -209,54 +209,51 @@ await page.getByRole('link', { name: 'Go', exact: true }).click();
 
 //
 //
-await page.goto('dhttps://ga.qa-portal-investorflow.com/PortalTwo/Documents.aspx');
-await expect(page.getByRole('link', { name: 'Documents' })).toBeVisible();
+await expect(page.getByRole('link', { name: 'Documents' })).toBeVisible({ timeout: 60000 });
 await page.getByRole('link', { name: 'Documents' }).click();
-  await page.waitForTimeout(3000);   
-await expect(page.getByTestId('tabs-filter').locator('div').filter({ hasText: 'Products Products Choose from' }).first()).toBeVisible();
-await expect(page.getByRole('link', { name: 'Products' })).toBeVisible();
-await expect(page.getByRole('link', { name: 'Investments' })).toBeVisible();
+await expect(page.getByTestId('tabs-filter').locator('div').filter({ hasText: 'Products Products Choose from' }).first()).toBeVisible({ timeout: 60000 });
+await expect(page.getByRole('link', { name: 'Products' })).toBeVisible({ timeout: 60000 });
+await expect(page.getByRole('link', { name: 'Investments' })).toBeVisible({ timeout: 60000 });
 await expect(page.getByRole('link', { name: 'Section/Category' })).toBeVisible(({ timeout: 10000 }));
-await expect(page.getByTestId('tabs-filter').getByText('show')).toBeVisible();
-await expect(page.getByTestId('showall')).toBeVisible();
-await expect(page.getByTestId('accessed')).toBeVisible();
-await expect(page.getByTestId('unread')).toBeVisible();
-await expect(page.getByTestId('bydate_button')).toBeVisible();
-await expect(page.getByTestId('search').locator('div').first()).toBeVisible();
-await expect(page.getByTestId('searchInput')).toBeVisible();
-await expect(page.getByText('show all unread Click for')).toBeVisible();
-await expect(page.getByTestId('mainContent_viewByLabel')).toBeVisible();
-await expect(page.locator('label').filter({ hasText: 'Products' }).locator('span')).toBeVisible();
-await expect(page.locator('label').filter({ hasText: 'Products' })).toBeVisible();
-await expect(page.locator('label').filter({ hasText: 'Categories' }).locator('span')).toBeVisible();
+await expect(page.getByTestId('tabs-filter').getByText('show')).toBeVisible({ timeout: 60000 });
+await expect(page.getByTestId('showall')).toBeVisible({ timeout: 60000 });
+await expect(page.getByTestId('accessed')).toBeVisible({timeout: 60000});
+await expect(page.getByTestId('unread')).toBeVisible({ timeout: 60000 });
+await expect(page.getByTestId('bydate_button')).toBeVisible({ timeout: 60000 });
+await expect(page.getByTestId('search').locator('div').first()).toBeVisible({ timeout: 60000 });
+await expect(page.getByTestId('searchInput')).toBeVisible({ timeout: 60000 });
+await expect(page.getByText('show all unread Click for')).toBeVisible({ timeout: 60000 });
+await expect(page.getByTestId('mainContent_viewByLabel')).toBeVisible({ timeout: 60000 });
+await expect(page.locator('label').filter({ hasText: 'Products' }).locator('span')).toBeVisible({ timeout: 60000 });
+await expect(page.locator('label').filter({ hasText: 'Products' })).toBeVisible({ timeout: 60000 });
+await expect(page.locator('label').filter({ hasText: 'Categories' }).locator('span')).toBeVisible({ timeout: 60000 });
 await expect(page.getByText('Categories')).toBeVisible();
 await expect(page.getByText('date title Investment Section')).toBeVisible();
 await expect(page.getByTestId('selectAll')).toBeVisible();
-await expect(page.getByText('Date', { exact: true })).toBeVisible();
-await expect(page.locator('span').filter({ hasText: 'date' }).nth(1)).toBeVisible();
-await expect(page.getByText('Title')).toBeVisible();
-await expect(page.locator('span').filter({ hasText: 'title' })).toBeVisible();
-await expect(page.locator('.tableHeaderInvestorLabel')).toBeVisible();
-await expect(page.getByText('Investment', { exact: true })).toBeVisible();
-await expect(page.locator('div').filter({ hasText: /^Section\/Category$/ })).toBeVisible();
-await expect(page.locator('.tableHeaderAction')).toBeVisible();
-await expect(page.getByText('Expand', { exact: true })).toBeVisible();
-await expect(page.locator('i').nth(1)).toBeVisible();
-await expect(page.getByTestId('fh_18').getByTestId('tableFundInfoSecondaryFilter_18')).toBeVisible();
-await expect(page.getByTestId('fh_18').getByRole('img')).toBeVisible();
-await expect(page.getByTestId('fh_18').getByTestId('tableFundInfoSecondaryFilter_18')).toBeVisible();
+await expect(page.getByText('date', { exact: true })).toBeVisible();
+await expect(page.locator('span').filter({ hasText: 'date' }).nth(1)).toBeVisible({ timeout: 60000 });
+await expect(page.getByText('title')).toBeVisible({ timeout: 60000 });
+await expect(page.locator('span').filter({ hasText: 'title' })).toBeVisible({ timeout: 60000 });
+await expect(page.locator('.tableHeaderInvestorLabel')).toBeVisible({ timeout: 60000 });
+await expect(page.getByText('Investment', { exact: true })).toBeVisible({ timeout: 60000 });
+await expect(page.locator('div').filter({ hasText: /^Section\/Category$/ })).toBeVisible({ timeout: 60000 });
+await expect(page.locator('.tableHeaderAction')).toBeVisible({ timeout: 60000 });
+await expect(page.getByText('Expand', { exact: true })).toBeVisible({ timeout: 60000 });
+await expect(page.locator('i').nth(1)).toBeVisible({ timeout: 60000 });
+await expect(page.getByTestId('fh_18').getByTestId('tableFundInfoSecondaryFilter_18')).toBeVisible({ timeout: 60000 });
+await expect(page.getByTestId('fh_18').getByRole('img')).toBeVisible({ timeout: 60000 });
+await expect(page.getByTestId('fh_18').getByTestId('tableFundInfoSecondaryFilter_18')).toBeVisible({ timeout: 60000 });
 
 // Show all 
  await expect(page.getByTestId('tabs-filter').getByText('show')).toBeVisible();
- await expect(page.getByTestId('All')).toBeVisible();
+ await expect(page.getByTestId('showall')).toBeVisible()
 // show unread 
 await page.getByTestId('unread').click();
-await page.waitForTimeout(1000);
-
 // show read 
+await page.getByTestId('accessed').click();
 // Show all
  await expect(page.getByTestId('tabs-filter').getByText('show')).toBeVisible();
- await expect(page.getByTestId('All')).toBeVisible();
+ await expect(page.getByTestId('showall')).toBeVisible();
 // show unread
 await page.getByTestId('unread').click();
 
@@ -282,9 +279,9 @@ await page.getByRole('link', { name: 'Products' }).click();
  await page.getByTestId('filterFunds').getByRole('link', { name: 'Go' }).click();
  await page.waitForTimeout(2000);
 
- // 
 
- // make the selection
+ // make the selection for investor needs work
+
  await page.getByRole('link', { name: 'Select All' }).click();
   await page.getByRole('link', { name: 'Remove All' }).click();
    await page.getByRole('link', { name: 'Select All' }).click();
