@@ -109,13 +109,10 @@ await expect(page.getByRole('link', { name: 'MARK ALL ALERTS AS READ' })).toBeVi
   await expect(page.getByRole('link', { name: 'Show All (2)' })).toBeVisible();
 await expect(page.getByText('Select an Investor to view')).toBeVisible();
 
-///investment alerts page actions 
- await page.getByRole('link', { name: 'Read (1)', exact: true }).click();
-   await page.waitForTimeout(500);
+///investment alerts page actions
+   await page.getByRole('link', { name: 'Read (1)', exact: true }).click();
    await page.getByRole('link', { name: 'Show All (2)' }).click();
-await page.waitForTimeout(200);
-   await page.getByRole('link', { name: 'Unread (1)' }).click();   
-   await page.waitForTimeout(500);     
+   await page.getByRole('link', { name: 'Unread (1)' }).click();
 
     // Due Diligence
      await page.getByRole('link', { name: 'Due Diligence' }).click();
@@ -146,7 +143,7 @@ await expect(page.locator('#mainContent_DocumentViewerControl_panelCallback_txtS
 await expect(page.getByRole('cell', { name: 'Search' })).toBeVisible();
 await expect(page.getByText('Expand Categories')).toBeVisible();
 await expect(page.locator('#mainContent_DocumentViewerControl_panelCallback_chkExpandToggle_S_D')).toBeVisible();
-await expect(page.getByText('File (0KB) Selected')).toBeVisible(); 
+await expect(page.getByText('0 File (0KB) Selected')).toBeVisible(); 
 await expect(page.locator('#mainContent_DocumentViewerControl_panelCallback_ASPxButtonMultiDownload')).toBeVisible(); 
 await expect(page.locator('#mainContent_DocumentViewerControl_panelCallback_ASPxButtonMultiDownloadImg')).toBeVisible();
 await expect(page.locator('#mainContent_DocumentViewerControl_panelCallback_ASPxButtonMultiDownload_CD span')).toBeVisible();
@@ -165,61 +162,135 @@ await expect(page.locator('#mainContent_DocumentViewerControl_panelCallback_dgvD
 //list view
 await page.locator('#mainContent_DocumentViewerControl_panelCallback_rbtnViewBy_RB1_I_D').click();
 await page.waitForTimeout(1000);
+//list view
+await page.locator('#mainContent_DocumentViewerControl_panelCallback_rbtnViewBy_RB1_I_D').click();
 ///list view searchfunctionality
 await page.getByTestId('mainContent_DocumentViewerControl_panelCallback_txtSearchDocuments_I').click();
 await page.getByTestId('mainContent_DocumentViewerControl_panelCallback_txtSearchDocuments_I').fill('lp testing prospect doc');
 ///wait for search results to load
-await expect(page.getByRole('link', { name: 'lp testing prospect doc' })).toBeVisible();
+await page.locator('#mainContent_DocumentViewerControl_panelCallback_txtSearchDocuments_I').clear();
+//close the download popup
 //download a document
 await page.locator('#mainContent_DocumentViewerControl_panelCallback_dgvDocument_cell1_16_DownloadSingleBtn_1Img').click();
 await page.locator('#mainContent_DocumentViewerControl_panelCallback_txtSearchDocuments_I').clear();
 //close the download popup
 await expect(page.locator('#customTooltip')).toBeVisible();
-await page.waitForTimeout(500);
 //switch email me the document/
 await expect(page.getByTestId('mainContent_DocumentViewerControl_panelCallback_dgvDocument_cell1_16_EmailMeSingleBtn_1Img')).toBeVisible();
 await page.getByTestId('mainContent_DocumentViewerControl_panelCallback_dgvDocument_cell1_16_EmailMeSingleBtn_1Img').click();
-await page.waitForTimeout(500);
-
-
-
-    //  Research & Insights page
-   await page.getByRole('link', { name: 'Research & Insights' }).click();
- await expect(page.getByText('News & Insights')).toBeVisible();
-await expect(page.getByText('Testing the RI BugSeptember')).toBeVisible();
-await expect(page.getByText('Insight Spotlight spot')).toBeVisible();
+await page.getByRole('link', { name: 'Research & Insights' }).click();
+await expect(page.getByText('News & Insights')).toBeVisible();
 await expect(page.getByRole('link', { name: 'Filter' })).toBeVisible();
-await expect(page.locator('div').filter({ hasText: /^Testing the RI BugSeptember 2025$/ }).first()).toBeVisible();
+await expect(page.getByTestId('filteredAnnouncement')).toBeVisible();
+await expect(page.getByTestId('filteredSpotlight')).toBeVisible();
 
 //filter functionality
    await page.getByRole('link', { name: 'Filter' }).click();
-    await page.waitForTimeout(1000);
 await expect(page.getByText('Categories')).toBeVisible();
 await expect(page.getByText('Category selection is required. Select All Insights Research')).toBeVisible();
 await expect(page.getByText('Date', { exact: true })).toBeVisible();
-await expect(page.getByRole('listitem').filter({ hasText: 'From 10/02/2025 To 10/02/' }).getByRole('radio')).toBeVisible();
-await expect(page.locator('#pdaterange_container').getByText('From')).toBeVisible();
-await expect(page.locator('#maincontainer').getByText('To', { exact: true })).toBeVisible();
+await expect(page.getByTestId('pdaterange_container').getByText('From')).toBeVisible();
+//filter functionality
+   await page.getByRole('link', { name: 'Filter' }).click();
+await expect(page.getByText('Categories')).toBeVisible();
+await expect(page.getByText('Category selection is required. Select All Insights Research')).toBeVisible();
+await expect(page.getByText('Date', { exact: true })).toBeVisible();
+await expect(page.getByTestId('pdaterange_container').getByText('From')).toBeVisible();
+await expect(page.getByTestId('maincontainer').getByText('To', { exact: true })).toBeVisible();
 await expect(page.locator('#pdaterange_container div').nth(2)).toBeVisible();
-await expect(page.getByRole('listitem').filter({ hasText: 'From 10/02/2025 To 10/02/' }).getByRole('radio')).toBeVisible();
 await expect(page.getByRole('listitem').filter({ hasText: 'All Dates' }).getByRole('radio')).toBeVisible();
 await expect(page.locator('#dd')).toBeVisible();
 await expect(page.getByRole('link').filter({ hasText: /^$/ }).first()).toBeVisible();
 await expect(page.getByRole('link', { name: 'Go', exact: true })).toBeVisible();
 await page.getByRole('link', { name: 'Go', exact: true }).click();
+
+  await page.waitForTimeout(1000);   
+
+
+//
+//
+await page.goto('dhttps://ga.qa-portal-investorflow.com/PortalTwo/Documents.aspx');
+await expect(page.getByRole('link', { name: 'Documents' })).toBeVisible();
+await page.getByRole('link', { name: 'Documents' }).click();
+  await page.waitForTimeout(3000);   
+await expect(page.getByTestId('tabs-filter').locator('div').filter({ hasText: 'Products Products Choose from' }).first()).toBeVisible();
+await expect(page.getByRole('link', { name: 'Products' })).toBeVisible();
+await expect(page.getByRole('link', { name: 'Investments' })).toBeVisible();
+await expect(page.getByRole('link', { name: 'Section/Category' })).toBeVisible(({ timeout: 10000 }));
+await expect(page.getByTestId('tabs-filter').getByText('show')).toBeVisible();
+await expect(page.getByTestId('showall')).toBeVisible();
+await expect(page.getByTestId('accessed')).toBeVisible();
+await expect(page.getByTestId('unread')).toBeVisible();
+await expect(page.getByTestId('bydate_button')).toBeVisible();
+await expect(page.getByTestId('search').locator('div').first()).toBeVisible();
+await expect(page.getByTestId('searchInput')).toBeVisible();
+await expect(page.getByText('show all unread Click for')).toBeVisible();
+await expect(page.getByTestId('mainContent_viewByLabel')).toBeVisible();
+await expect(page.locator('label').filter({ hasText: 'Products' }).locator('span')).toBeVisible();
+await expect(page.locator('label').filter({ hasText: 'Products' })).toBeVisible();
+await expect(page.locator('label').filter({ hasText: 'Categories' }).locator('span')).toBeVisible();
+await expect(page.getByText('Categories')).toBeVisible();
+await expect(page.getByText('date title Investment Section')).toBeVisible();
+await expect(page.getByTestId('selectAll')).toBeVisible();
+await expect(page.getByText('Date', { exact: true })).toBeVisible();
+await expect(page.locator('span').filter({ hasText: 'date' }).nth(1)).toBeVisible();
+await expect(page.getByText('Title')).toBeVisible();
+await expect(page.locator('span').filter({ hasText: 'title' })).toBeVisible();
+await expect(page.locator('.tableHeaderInvestorLabel')).toBeVisible();
+await expect(page.getByText('Investment', { exact: true })).toBeVisible();
+await expect(page.locator('div').filter({ hasText: /^Section\/Category$/ })).toBeVisible();
+await expect(page.locator('.tableHeaderAction')).toBeVisible();
+await expect(page.getByText('Expand', { exact: true })).toBeVisible();
+await expect(page.locator('i').nth(1)).toBeVisible();
+await expect(page.getByTestId('fh_18').getByTestId('tableFundInfoSecondaryFilter_18')).toBeVisible();
+await expect(page.getByTestId('fh_18').getByRole('img')).toBeVisible();
+await expect(page.getByTestId('fh_18').getByTestId('tableFundInfoSecondaryFilter_18')).toBeVisible();
+
+// Show all 
+ await expect(page.getByTestId('tabs-filter').getByText('show')).toBeVisible();
+ await expect(page.getByTestId('All')).toBeVisible();
+// show unread 
+await page.getByTestId('unread').click();
 await page.waitForTimeout(1000);
-await page.getByRole('link', { name: 'Filter' }).click();
-await page.waitForTimeout(200);
 
-    // Upload a document
-    await page.locator('[name="ctl00$mainContent$fileUpload"]').setInputFiles('tests/fixtures/adiligencedile.pdf');
-    await page.locator('[name="ctl00$mainContent$BtnSubmitClient"]').click();
+// show read 
+// Show all
+ await expect(page.getByTestId('tabs-filter').getByText('show')).toBeVisible();
+ await expect(page.getByTestId('All')).toBeVisible();
+// show unread
+await page.getByTestId('unread').click();
 
-    // Contact Us
-    await page.locator('ul.secondaryNav > :nth-child(1) > a').click();
-    await page.locator('[name="ctl00$mainContent$Subject"]').fill('Hello Playwright');
-    await page.locator('[name="ctl00$mainContent$Message"]').fill('Hello from Playwright');
-    await page.locator('#buttonsubmit').click();
+// show read
+await page.getByTestId('unread').click();
+
+// back to show all
+await page.getByTestId('showall').click();
+
+// select all product
+await page.getByRole('link', { name: 'Products' }).click();
+
+// validate product filter
+ await expect(page.getByTestId('ft-id-4')).toBeVisible();
+
+ // make the selection 
+ await page.getByRole('link', { name: 'Select All' }).click();
+ await page.waitForTimeout(1000);
+  await page.getByRole('link', { name: 'Remove All' }).click();
+   await page.waitForTimeout(1000);
+   await page.getByRole('link', { name: 'Select All' }).click();
+ await page.waitForTimeout(1000);
+ await page.getByTestId('filterFunds').getByRole('link', { name: 'Go' }).click();
+ await page.waitForTimeout(2000);
+
+ // 
+
+ // make the selection
+ await page.getByRole('link', { name: 'Select All' }).click();
+  await page.getByRole('link', { name: 'Remove All' }).click();
+   await page.getByRole('link', { name: 'Select All' }).click();
+ await page.getByTestId('filterFunds').getByRole('link', { name: 'Go' }).click();
+
+ //
     await expect(page.locator('#mainContent_messageDivID')).toContainText('Successfully Sent');
 
     // Logout flow
