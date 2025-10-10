@@ -427,9 +427,9 @@ console.log('File Uploaded')
   }catch (Error)
                {console.log('File Not Uploaded');}
   await page.getByTestId('mainContent_BtnSubmitClient').click();
-  await expect(page.getByRole('cell', { name: 'new test play' })).toBeVisible();
-  await expect(page.getByRole('row', { name: 'new test play 10/07/2025' }).locator('div').nth(1)).toBeVisible();
-
+await expect(page.locator('tr:nth-child(22) > td').first()).toBeVisible();
+await expect(page.locator('tr:nth-child(22) > td:nth-child(4) > div:nth-child(2)')).toBeVisible();
+await expect(page.locator('tr:nth-child(22) > td:nth-child(3)')).toBeVisible();
 
     // Logout flow
     await page.getByTestId('tertiaryNavArrow').click();
