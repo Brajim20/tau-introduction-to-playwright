@@ -84,7 +84,7 @@ await expect(page.getByText('Admin')).toBeVisible();
    await expect(page.getByTestId('mainContent_showallAnnouncement')).toBeVisible();
    await expect(page.getByTestId('mainContent_unreadAnnouncement')).toBeVisible();
  await expect(page.getByTestId('mainContent_accessedAnnouncement')).toBeVisible();
-  await expect(page.getByText('Upcoming Events')).toBeVisible();
+  await expect(page.getByText('Upcoming Events', { exact: true })).toBeVisible();
 await expect(page.getByText('Current Tasks')).toBeVisible();
 
 
